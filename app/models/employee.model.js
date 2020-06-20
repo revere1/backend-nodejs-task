@@ -107,17 +107,30 @@ Employee.remove = (id, result) => {
   });
 };
 
-Employee.removeAll = result => {
-  sql.query("DELETE FROM employee_details", (err, res) => {
+Employee.getName = (employeeName, result) => {
+  console.log("Employee.getName -> employeeName", employeeName)
+  sql.query(`SELECT
+  employee_id employeeId,
+  first_name firstName,
+  last_name lastName,
+  employee_name employeeName,
+  age,
+  DATE_FORMAT(doj, '%m-%d-%Y') doj,
+  DATE_FORMAT(dob, '%m-%d-%Y') dob,
+  profile_pic profilePic FROM employee_details WHERE employee_name LIKE '%${employeeName}%'`, (err, res) => {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
       return;
     }
 
-    console.log(`deleted ${res.affectedRows} employees`);
-    result(null, res);
+    if (res.length) {
+      result(null, res);
+      return;
+    }
+
+    // not found Employee with the id
+    result({ kind: "not_found" }, null);
   });
 };
-
 module.exports = Employee;

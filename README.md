@@ -1,4 +1,11 @@
 # backend-nodejs-task
 
-`npm install` 
-`nodemon start`
+## Project setup
+```
+npm install
+```
+
+### Run
+```
+node server.js
+```

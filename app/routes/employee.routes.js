@@ -1,6 +1,9 @@
 module.exports = app => {
   const employees = require("../controllers/employee.controller.js");
 
+   // Retrieve all Employees based name
+   app.get("/employees/search", employees.findName);
+   
   // Create a new Employees
   app.post("/employees", employees.create);
 
@@ -15,5 +18,7 @@ module.exports = app => {
 
   // Delete a Employees with employeeId
   app.delete("/employees/:employeeId", employees.delete);
+
+   
 
 };

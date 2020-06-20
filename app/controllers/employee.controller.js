@@ -43,6 +43,19 @@ exports.findAll = (req, res) => {
   });
 };
 
+// Retrieve all Employees from the database.
+exports.findName = (req, res) => {
+  Employee.getName(req.query.employeeName,(err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Employees."
+      });
+    else res.send(data);
+  });
+};
+
+
 // Find a single Employee with a EmployeeId
 exports.findOne = (req, res) => {
   Employee.findById(req.params.employeeId, (err, data) => {
